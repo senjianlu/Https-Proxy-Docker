@@ -31,8 +31,16 @@ if [ ! -f /root/cat/config.yaml ]; then
     exit 1
 fi
 
+# 3. 判断是否满足 apache2 运行要求
+# /root/ssl/.well-known/ 目录不存在的话创建
+if [ ! -d /root/ssl/.well-known ]; then
+    mkdir -p /root/ssl/.well-known
+fi
+
 # 3. 启动
-# 3.1 启动 stunnel
+# 3.1 启动 apache2（后台运行）
+apachectl -D FOREGROUND &
+# 3.2 启动 stunnel（后台运行）
 stunnel
-# 3.2 启动 clash
+# 3.3 启动 clash
 cd /root/ && ./clash -f /root/cat/config.yaml

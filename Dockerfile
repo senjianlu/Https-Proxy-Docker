@@ -16,6 +16,7 @@ RUN apt-get update -y
 RUN apt-get install wget -y
 
 # 下载 Clash 和其配置文件
+RUN mkdir -vp /root/cat/
 WORKDIR /root/
 RUN wget https://github.com/senjianlu/Clash-Docker/raw/master/backup/clash
 RUN chmod +x /root/clash
@@ -27,6 +28,7 @@ RUN wget https://github.com/senjianlu/Clash-Docker/raw/master/backup/cache.db
 RUN wget https://github.com/senjianlu/Clash-Docker/raw/master/backup/config.yaml
 
 # 安装 stunnel
+RUN mkdir -vp /root/ssl/
 WORKDIR /root/
 RUN apt-get install stunnel -y
 # 编辑配置文件
@@ -35,6 +37,14 @@ RUN echo "[squid]" >> /etc/stunnel/stunnel.conf
 RUN echo "accept = 443" >> /etc/stunnel/stunnel.conf
 RUN echo "connect = 127.0.0.1:8910" >> /etc/stunnel/stunnel.conf
 RUN echo "cert = /root/ssl/stunnel.pem" >> /etc/stunnel/stunnel.conf
+
+# 安装 httpd 以映射证书认证文件
+RUN apt-get install apache2 -y
+# 创建认证文件存放用的目录
+RUN mkdir -vp /root/ssl/.well-known/
+RUN mkdir -vp /var/www/html/.well-known/
+# 建立软链接
+RUN ln -s /root/ssl/.well-known/ /var/www/html/.well-known/
 
 # 下载 Seafile 脚本到容器
 WORKDIR /root/

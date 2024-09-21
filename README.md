@@ -5,6 +5,7 @@
 # 目录映射
 docker run -d \
   --name=my_https_proxy \
+  -p 80:80 \
   -p 443:443 \
   -v /rab/docker/https_proxy/config/cat/:/root/cat/ \
   -v /rab/docker/https_proxy/config/ssl/:/root/ssl/ \
@@ -13,6 +14,7 @@ docker run -d \
 # 环境变量
 docker run -d \
   --name=my_https_proxy \
+  -p 80:80 \
   -p 443:443 \
   -e STUNNEL_SSL_CA_PEM="===CA===" \
   -e STUNNEL_SSL_PRIVATE_KEY_PEM="===CERT===" \
