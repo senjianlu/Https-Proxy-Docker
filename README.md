@@ -16,8 +16,9 @@ docker run -d \
   --name=my_https_proxy \
   -p 80:80 \
   -p 443:443 \
+  -e STUNNEL_SSL_CERTIFICATE_PEM="===CERT===" \
   -e STUNNEL_SSL_CA_PEM="===CA===" \
-  -e STUNNEL_SSL_PRIVATE_KEY_PEM="===CERT===" \
+  -e STUNNEL_SSL_PRIVATE_KEY_PEM="===KEY===" \
   -e CLASH_CONFIG_DOWNLOAD_URL="https://example.com/clash.yaml" \
   -e CLASH_CONFIG_DOWNLOAD_PASSWORD="password" \
   rabbir/https_proxy:latest

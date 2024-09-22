@@ -45,7 +45,7 @@ RUN apt-get install apache2 -y
 RUN mkdir -vp /root/ssl/.well-known/
 RUN mkdir -vp /var/www/html/.well-known/
 # 建立软链接
-RUN ln -s /root/ssl/.well-known/ /var/www/html/.well-known/
+RUN ln -s /root/ssl/.well-known /var/www/html/
 
 # 下载 Seafile 脚本到容器
 WORKDIR /root/

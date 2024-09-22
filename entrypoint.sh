@@ -1,17 +1,21 @@
 #!/bin/sh
 
 # 1. 判断 stunnel 运行要求是否满足
-# 1.1 环境变量 STUNNEL_SSL_CA_PEM 是否存在，存在的话写入 /root/ssl/ca.pem 文件
+# 1.1 环境变量 STUNNEL_SSL_CERTIFICATE_PEM 是否存在，存在的话写入 /root/ssl/certificate.pem 文件
+if [ -n "$STUNNEL_SSL_CERTIFICATE_PEM" ]; then
+    echo "$STUNNEL_SSL_CERTIFICATE_PEM" > /root/ssl/certificate.pem
+fi
+# 1.2 环境变量 STUNNEL_SSL_CA_PEM 是否存在，存在的话写入 /root/ssl/ca.pem 文件
 if [ -n "$STUNNEL_SSL_CA_PEM" ]; then
     echo "$STUNNEL_SSL_CA_PEM" > /root/ssl/ca.pem
 fi
-# 1.2 环境变量 STUNNEL_SSL_PRIVATE_KEY_PEM 是否存在，存在的话写入 /root/ssl/private.pem 文件
+# 1.3 环境变量 STUNNEL_SSL_PRIVATE_KEY_PEM 是否存在，存在的话写入 /root/ssl/private.pem 文件
 if [ -n "$STUNNEL_SSL_PRIVATE_KEY_PEM" ]; then
     echo "$STUNNEL_SSL_PRIVATE_KEY_PEM" > /root/ssl/private.pem
 fi
-# 1.3 更新 /root/ssl/stunnel.pem 文件
+# 1.4 更新 /root/ssl/stunnel.pem 文件
 # 合并文件
-cat /root/ssl/ca.pem /root/ssl/private.pem > /root/ssl/stunnel.pem
+cat /root/ssl/certificate.pem /root/ssl/ca.pem /root/ssl/private.pem > /root/ssl/stunnel.pem
 
 # 2. 判断 clash 运行要求是否满足
 # 2.1 环境变量 CLASH_CONFIG_DOWNLOAD_URL 是否存在，存在的话下载配置文件
