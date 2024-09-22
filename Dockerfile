@@ -43,9 +43,9 @@ RUN echo "cert = /root/ssl/stunnel.pem" >> /etc/stunnel/stunnel.conf
 RUN apt-get install apache2 -y
 # 创建认证文件存放用的目录
 RUN mkdir -vp /root/ssl/.well-known/
-RUN mkdir -vp /var/www/html/.well-known/
+RUN mkdir -vp /var/www/html/
 # 建立软链接
-RUN ln -s /root/ssl/.well-known /var/www/html/.well-known
+RUN ln -s /root/ssl/.well-known /var/www/html
 
 # 下载 Seafile 脚本到容器
 WORKDIR /root/

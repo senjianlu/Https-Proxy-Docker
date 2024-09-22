@@ -4,14 +4,47 @@
 # 1.1 环境变量 STUNNEL_SSL_CERTIFICATE_PEM 是否存在，存在的话写入 /root/ssl/certificate.pem 文件
 if [ -n "$STUNNEL_SSL_CERTIFICATE_PEM" ]; then
     echo "$STUNNEL_SSL_CERTIFICATE_PEM" > /root/ssl/certificate.pem
+    # 删除开头的 -----BEGIN CERTIFICATE----- 和结尾的 -----END CERTIFICATE-----
+    sed 's/-----BEGIN CERTIFICATE-----//g' -i /root/ssl/certificate.pem
+    sed 's/-----END CERTIFICATE-----//g' -i /root/ssl/certificate.pem
+    # 将空格替换为换行符
+    sed 's/ /\n/g' -i /root/ssl/certificate.pem
+    # 删除空行
+    sed '/^$/d' -i /root/ssl/certificate.pem
+    # 在第一行前添加 -----BEGIN CERTIFICATE-----
+    sed -i '1i -----BEGIN CERTIFICATE-----' /root/ssl/certificate.pem
+    # 在最后一行后添加 -----END CERTIFICATE-----
+    sed -i '$a -----END CERTIFICATE-----' /root/ssl/certificate.pem
 fi
 # 1.2 环境变量 STUNNEL_SSL_CA_PEM 是否存在，存在的话写入 /root/ssl/ca.pem 文件
 if [ -n "$STUNNEL_SSL_CA_PEM" ]; then
     echo "$STUNNEL_SSL_CA_PEM" > /root/ssl/ca.pem
+    # 删除开头的 -----BEGIN CERTIFICATE----- 和结尾的 -----END CERTIFICATE-----
+    sed 's/-----BEGIN CERTIFICATE-----//g' -i /root/ssl/ca.pem
+    sed 's/-----END CERTIFICATE-----//g' -i /root/ssl/ca.pem
+    # 将空格替换为换行符
+    sed 's/ /\n/g' -i /root/ssl/ca.pem
+    # 删除空行
+    sed '/^$/d' -i /root/ssl/ca.pem
+    # 在第一行前添加 -----BEGIN CERTIFICATE-----
+    sed -i '1i -----BEGIN CERTIFICATE-----' /root/ssl/ca.pem
+    # 在最后一行后添加 -----END CERTIFICATE-----
+    sed -i '$a -----END CERTIFICATE-----' /root/ssl/ca.pem
 fi
 # 1.3 环境变量 STUNNEL_SSL_PRIVATE_KEY_PEM 是否存在，存在的话写入 /root/ssl/private.pem 文件
 if [ -n "$STUNNEL_SSL_PRIVATE_KEY_PEM" ]; then
     echo "$STUNNEL_SSL_PRIVATE_KEY_PEM" > /root/ssl/private.pem
+    # 删除开头的 -----BEGIN RSA PRIVATE KEY----- 和结尾的 -----END RSA PRIVATE KEY-----
+    sed 's/-----BEGIN RSA PRIVATE KEY-----//g' -i /root/ssl/private.pem
+    sed 's/-----END RSA PRIVATE KEY-----//g' -i /root/ssl/private.pem
+    # 将空格替换为换行符
+    sed 's/ /\n/g' -i /root/ssl/private.pem
+    # 删除空行
+    sed '/^$/d' -i /root/ssl/private.pem
+    # 在第一行前添加 -----BEGIN RSA PRIVATE KEY-----
+    sed -i '1i -----BEGIN RSA PRIVATE KEY-----' /root/ssl/private.pem
+    # 在最后一行后添加 -----END RSA PRIVATE KEY-----
+    sed -i '$a -----END RSA PRIVATE KEY-----' /root/ssl/private.pem
 fi
 # 1.4 更新 /root/ssl/stunnel.pem 文件
 # 合并文件
