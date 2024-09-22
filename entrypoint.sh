@@ -69,15 +69,26 @@ if [ ! -f /root/cat/config.yaml ]; then
 fi
 
 # 3. 判断是否满足 apache2 运行要求
-# /root/ssl/.well-known/ 目录不存在的话创建
+# 3.1 /root/ssl/.well-known/ 目录不存在的话创建
 if [ ! -d /root/ssl/.well-known ]; then
     mkdir -p /root/ssl/.well-known
 fi
+echo "Hello, World!" > /root/ssl/.well-known/hello.txt
+# 3.2 允许 .well-known 目录被访问
+# echo "Alias /.well-known /var/www/html/.well-known" >> /etc/apache2/conf-available/well-known.conf
+# echo "<Directory /var/www/html/.well-known>" >> /etc/apache2/conf-available/well-known.conf
+# echo "    Options Indexes FollowSymLinks" >> /etc/apache2/conf-available/well-known.conf
+# echo "    AllowOverride None" >> /etc/apache2/conf-available/well-known.conf
+# echo "    Require all granted" >> /etc/apache2/conf-available/well-known.conf
+# echo "</Directory>" >> /etc/apache2/conf-available/well-known.conf
+# chown -R www-data:www-data /var/www/html/.well-known
+# chmod -R 755 /var/www/html/.well-known
+# a2enconf well-known
 
-# 3. 启动
-# 3.1 启动 apache2（后台运行）
+# 4. 启动
+# 4.1 启动 apache2（后台运行）
 apachectl -D FOREGROUND &
-# 3.2 启动 stunnel（后台运行）
+# 4.2 启动 stunnel（后台运行）
 stunnel
-# 3.3 启动 clash
+# 4.3 启动 clash
 cd /root/ && ./clash -f /root/cat/config.yaml
