@@ -14,6 +14,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime > /etc/timezone
 # 安装依赖
 RUN apt-get update -y
 RUN apt-get install wget -y
+RUN apt-get install curl -y
 
 # 下载 Clash 和其配置文件
 RUN mkdir -vp /root/cat/
