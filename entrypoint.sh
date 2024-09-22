@@ -18,9 +18,9 @@ cat /root/ssl/ca.pem /root/ssl/private.pem > /root/ssl/stunnel.pem
 if [ -n "$CLASH_CONFIG_DOWNLOAD_URL" ]; then
     # CLASH_CONFIG_DOWNLOAD_PASSWORD 环境变量存在的话下载配置文件时带上密码
     if [ -n "$CLASH_CONFIG_DOWNLOAD_PASSWORD" ]; then
-        cd /root/ && bash download.sh $CLASH_CONFIG_DOWNLOAD_URL $CLASH_CONFIG_DOWNLOAD_PASSWORD
+        cd /root/ && bash download.sh $CLASH_CONFIG_DOWNLOAD_URL config.yaml $CLASH_CONFIG_DOWNLOAD_PASSWORD
     else
-        cd /root/ && bash download.sh $CLASH_CONFIG_DOWNLOAD_URL
+        cd /root/ && bash download.sh $CLASH_CONFIG_DOWNLOAD_URL config.yaml
     fi
     # 下载完成后将配置文件移动到 /root/cat/config.yaml
     mv /root/config.yaml /root/cat/config.yaml
