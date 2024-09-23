@@ -1,5 +1,8 @@
 # Https-Proxy-Docker
 
+## 构建
+构建完成的 Docker 镜像：[https-proxy](https://hub.docker.com/r/rabbir/https-proxy)
+
 ## 启动
 ### 一、目录映射启动
 需要文件：
@@ -16,7 +19,7 @@ docker run -d \
   -p 443:443 \
   -v /rab/docker/https_proxy/config/cat/:/root/cat/ \
   -v /rab/docker/https_proxy/config/ssl/:/root/ssl/ \
-  rabbir/https_proxy:latest
+  rabbir/https-proxy:latest
 ```
 
 ### 二、环境变量启动
@@ -47,5 +50,5 @@ docker run -d \
   -e STUNNEL_SSL_PRIVATE_KEY_PEM="===KEY===" \
   -e CLASH_CONFIG_DOWNLOAD_URL="https://example.com/clash.yaml" \
   -e CLASH_CONFIG_DOWNLOAD_PASSWORD="password" \
-  rabbir/https_proxy:latest
+  rabbir/https-proxy:latest
 ```
